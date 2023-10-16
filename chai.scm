@@ -1,0 +1,3 @@
+(import (chai main))
+
+main
