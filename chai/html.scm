@@ -63,7 +63,7 @@
                   ((string? x) (string->safe-html-string x))
                   ((list? x) (html x))
                   (else
-                    (error "fatal while parsing: unknown data type"))))
+                    (err "fatal while parsing: unknown data type"))))
               (cdr l))
             "")
 

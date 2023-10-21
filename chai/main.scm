@@ -148,29 +148,29 @@
       (define chai-dir (if (eqv? (cdr args) '()) "." (cadr args)))
 
       (when (not (directory? chai-dir))
-        (error "not a directory: " chai-dir))
+        (err "not a directory: " chai-dir))
 
       (chdir chai-dir)
       (when (not (is-chai-directory? "."))
-        (error "directory does not contain config.scm" ""))
+        (err "directory does not contain config.scm" ""))
 
-      (let ((cfg (read-config "config.scm")))
-        (let ((css (aq 'css cfg))
-              (index-template (aq 'index-template cfg))
-              (gallery-template (aq 'gallery-template cfg))
-              (page-name (aq 'page-name cfg))
-              (output-directory (aq 'output-directory cfg)))
+      (let* ((cfg (read-config "config.scm"))
+             (css (aq 'css cfg))
+             (index-template (aq 'index-template cfg))
+             (gallery-template (aq 'gallery-template cfg))
+             (page-name (aq 'page-name cfg))
+             (output-directory (aq 'output-directory cfg)))
 
-          (if (directory? output-directory)
-            (rmdir-recursive output-directory))
-          (create-directory output-directory)
+        (if (directory? output-directory)
+          (rmdir-recursive output-directory))
+        (create-directory output-directory)
 
-          (for-each
-            (λ (v) (create-gallery cfg v))
-            (gallery-dirs output-directory))
+        (for-each
+          (λ (v) (create-gallery cfg v))
+          (gallery-dirs output-directory))
 
-          (create-index cfg)
-          (create-directory (string-append output-directory "/res"))
-          (print-to
-            (open-output-file (string-append output-directory "/res/chai.css"))
-            chai-css))))))
+        (create-index cfg)
+        (create-directory (string-append output-directory "/res"))
+        (print-to
+          (open-output-file (string-append output-directory "/res/chai.css"))
+          chai-css)))))

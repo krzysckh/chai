@@ -6,6 +6,7 @@
     (owl list)
     (owl string)
     (owl regex)
+    (owl port)
     (owl sys)
     (owl io)
     (scheme base))
@@ -13,6 +14,7 @@
   (export
     aq
     naq
+    err
     bool->string
     create-directory
     file->extension
@@ -34,11 +36,6 @@
     (define (system-say l)
       (print (string-append "+ " (car l) " " (cadr l) "..."))
       (system l))
-
-    (define (aq v l)
-      (if (pair? (assq v l))
-        (cdr (assq v l))
-        (error "undefined in config: " v)))
 
     (define (naq v l)
       (if (pair? (assq v l))
@@ -79,7 +76,17 @@
         ((boolean? x) (bool->string x))
         ((char? x) (string x))
         ((string? x) x)
-        (else (error "->string: unexpected type"))))
+        (else
+	  "")))
+
+    ; (err) doesn't work when compiled
+    (define (err s . x)
+      (print-to stderr (string-append "error: " s " " (->string x))))
+
+    (define (aq v l)
+      (if (pair? (assq v l))
+        (cdr (assq v l))
+        (err "undefined in config: " v)))
 
     (define (number->month d)
       (->string (list-ref month-names (- d 1))))))
