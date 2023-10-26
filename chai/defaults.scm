@@ -124,11 +124,6 @@ html, body {
   }
 }
 
-html {
-  background-color: white;
-  font-family: monospace;
-}
-
 p {
   display: block;
 }
@@ -148,7 +143,7 @@ img {
   gap: 0px 0px;
   justify-content: start;
   justify-items: stretch;
-  align-items: end;
+  align-items: start;
 }
 
 #idx-gal-list {

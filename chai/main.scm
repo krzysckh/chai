@@ -9,6 +9,7 @@
     (owl regex)
     (owl sys)
     (owl syscall)
+    (owl digest)
     (scheme base)
     (scheme cxr)
 
@@ -46,27 +47,25 @@
       (filter (λ (s) (has? (dir->list s) "index.scm")) candidates))
 
     (define (create-gallery cfg d)
-      (let ((css (aq 'css cfg))
-            (index-template (aq 'index-template cfg))
-            (gallery-template (if (eq? (aq 'gallery-template cfg) 'use-default)
-                                default-gallery-template
-                                (aq 'gallery-template cfg)))
-            (page-name (aq 'page-name cfg))
-            (output-directory (aq 'output-directory cfg)))
-        (define n (->string (length (dir->list output-directory))))
-        (define dir (string-append output-directory "/" n))
-        (create-directory dir)
-        (define f (open-output-file (string-append dir "/index.html")))
-        (define gal-cfg (read-config (string-append d "/index.scm")))
+      (let* ((css (aq 'css cfg))
+             (index-template (aq 'index-template cfg))
+             (gallery-template (if (eq? (aq 'gallery-template cfg) 'use-default)
+                                 default-gallery-template
+                                 (aq 'gallery-template cfg)))
+             (page-name (aq 'page-name cfg))
+             (output-directory (aq 'output-directory cfg))
+             (n (sha1 d))
+             (dir (string-append output-directory "/" n))
+             (_ (create-directory dir))
+             (f (open-output-file (string-append dir "/index.html")))
+             (gal-cfg (read-config (string-append d "/index.scm")))
+             (date (aq 'date gal-cfg))
+             (date-str (string-append
+                         (->string (car date)) " "
+                         (number->month (cadr date)) " "
+                         (->string (cddr date)))))
 
-        (define date (aq 'date gal-cfg))
-        (define date-str
-          (string-append
-            (->string (car date)) " "
-            (number->month (cadr date)) " "
-            (->string (cddr date))))
-
-        (when (eq? #t (naq 'private gal-cfg))
+        (when (eq? #t (naq 'privatstarte gal-cfg))
           (print-to
             (open-output-file (string-append dir "/.htaccess"))
             (private-htaccess (aq 'htpasswd gal-cfg))))
@@ -106,16 +105,12 @@
             (output-directory (aq 'output-directory cfg)))
 
         (define dirs
-          (filter (λ (s) (and
-                            (directory? s)
-                            (not (string=? output-directory s))))
-                  (dir->list ".")))
-
-        (define names
-          (map
+          (filter
             (λ (s)
-               (aq 'gallery-name (read-config (string-append s "/index.scm"))))
-            dirs))
+              (and
+                (directory? s)
+                (not (string=? output-directory s))))
+            (dir->list ".")))
 
         (print-to
           (open-output-file (string-append output-directory "/.htaccess"))
@@ -129,22 +124,22 @@
                 '((div  (id . "idx-gal-list")))
                 (map
                   (λ (v)
-                     (define D (string-append (->string v) "/res/"))
-                     (define cfg (read-config (string-append
-                                                (list-ref dirs v)
-                                                "/index.scm")))
-                     `((div (class . "idx-gal"))
-                       ,(list-ref names v)
-                       ((a (href . ,(->string v)))
-                        ,(if (aq 'private cfg)
-                           '(p "[private]")
-                           `((img
-                               (src . ,(string-append
-                                         D (car
-                                             (get-images
-                                               (string-append output-directory
-                                                              "/" D)))))))))))
-                  (iota 0 1 (length names)))))))))
+                     (let*
+                       ((D (string-append (sha1 v) "/res/"))
+                        (cfg (read-config (string-append v "/index.scm"))))
+                       `((div (class . "idx-gal"))
+                         ,(aq 'gallery-name cfg)
+                         ((a (href . ,(sha1 v)))
+                          ,(if (aq 'private cfg)
+                             '(p "[private]")
+                             `((img
+                                 (src
+                                   . ,(string-append
+                                        D (car
+                                            (get-images
+                                              (string-append output-directory
+                                                             "/" D))))))))))))
+                  dirs)))))))
 
     ; https://gitlab.com/owl-lisp/owl/-/issues/39
     ; (define (interned-symbols)
@@ -188,4 +183,6 @@
         (create-directory (string-append output-directory "/res"))
         (print-to
           (open-output-file (string-append output-directory "/res/chai.css"))
-          chai-css)))))
+          chai-css)
+        (print "ok")
+        0))))

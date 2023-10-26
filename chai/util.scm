@@ -9,6 +9,7 @@
     (owl port)
     (owl sys)
     (owl io)
+    (scheme write)
     (scheme base))
 
   (export
@@ -33,15 +34,10 @@
     (define (tolower s)
       (list->string (map (λ (x) (if (< x 97) (+ x 32) x)) (string->list s))))
 
-    (define (system-say l)
-      (print (string-append "+ " (car l) " " (cadr l) "..."))
-      (system l))
-
     (define (naq v l)
       (if (pair? (assq v l))
         (cdr (assq v l))
         #f))
-
 
     (define (file->extension s)
       (tolower (last ((string->regex "c/\\./") s) #f)))
@@ -82,6 +78,12 @@
     ; (err) doesn't work when compiled
     (define (err s . x)
       (print-to stderr (string-append "error: " s " " (->string x))))
+
+    ; this is mainly for debugging purposes, that's why (->string l) -> "."
+    (define (system-say l)
+      ;(print (->string l))
+      (display ".")
+      (system l))
 
     (define (aq v l)
       (if (pair? (assq v l))
