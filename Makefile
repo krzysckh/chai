@@ -13,7 +13,7 @@ all: $(TARGET).c
 	$(OL) $(OLFLAGS) -x c -o $@ $<
 clean:
 	rm -fr *.c bin/$(TARGET)
-install:
+install: all
 	cp bin/$(TARGET) /usr/local/bin/$(TARGET)
 	cp chai.1 /usr/local/man/man1/chai.1
 uninstall:
