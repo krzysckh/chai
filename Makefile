@@ -14,7 +14,7 @@ all: $(TARGET).c
 clean:
 	rm -fr *.c bin/$(TARGET)
 install:
-	cp $(TARGET) /usr/local/bin/$(TARGET)
+	cp bin/$(TARGET) /usr/local/bin/$(TARGET)
 	cp chai.1 /usr/local/man/man1/chai.1
 uninstall:
 	rm -f $(PREFIX)/bin/$(TARGET)

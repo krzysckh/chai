@@ -46,11 +46,11 @@ return these association lists:
 
 ```scheme
 ; config.scm:
-'((css . use-default)                  ; this setting is not implemented yet
-  (gallery-template . use-default)     ; explained below
-  (index-template . use-default)       ; explained below
-  (page-name . "example gallery")      ; the <title> and the <h1> title
-  (output-directory . "public_html"))) ; output directory under my-gallery
+'((css . use-default)                 ; this setting is not implemented yet
+  (gallery-template . use-default)    ; explained below
+  (index-template . use-default)      ; explained below
+  (page-name . "example gallery")     ; the <title> and the <h1> title
+  (output-directory . "public_html")) ; output directory under my-gallery
 ```
 
 ```scheme
@@ -96,6 +96,7 @@ caveats
 - the man page sucks
 
 ------
+```
 krzysckh 2023
-
 krzysckh.org
+```
