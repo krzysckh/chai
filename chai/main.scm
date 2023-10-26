@@ -12,6 +12,8 @@
     (scheme base)
     (scheme cxr)
 
+    (only (owl intern) start-symbol-interner)
+
     (chai config)
     (chai util)
     (chai defaults)
@@ -144,8 +146,21 @@
                                                               "/" D)))))))))))
                   (iota 0 1 (length names)))))))))
 
+    ; https://gitlab.com/owl-lisp/owl/-/issues/39
+    ; (define (interned-symbols)
+    ;   (let loop ((x (ref (interact 'intern null) 2))
+    ;              (found null))
+    ;     (if x
+    ;       (loop
+    ;         (ref x 1)
+    ;         (cons (ref x 2)
+    ;               (loop (ref x 3) found)))
+    ;       found)))
+    ; (define symbols (interned-symbols))
+
     (define (main args)
       (define chai-dir (if (eqv? (cdr args) '()) "." (cadr args)))
+      ; (start-symbol-interner symbols)
 
       (when (not (directory? chai-dir))
         (err "not a directory: " chai-dir))
