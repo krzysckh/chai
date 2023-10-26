@@ -4,6 +4,8 @@ chai
 a static html gallery generator written in
 [owl lisp](https://haltp.org/posts/owl.html)
 
+*work in progress, i may or may not introduce breaking changes*
+
 why
 ---
 

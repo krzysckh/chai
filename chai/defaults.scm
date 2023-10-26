@@ -150,6 +150,11 @@ img {
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
+#idx-gal-list img {
+  max-height: 150px !important;
+  width: auto !important;
+}
+
 #gal-images {
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
 }
