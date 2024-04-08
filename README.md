@@ -1,5 +1,4 @@
-chai
-----
+## chai
 
 <img src="https://raw.githubusercontent.com/krzysckh/chai/master/res/chai.jpg" align="right" width="300px">
 
@@ -8,21 +7,18 @@ a static html gallery generator written in
 
 *work in progress, i may or may not introduce breaking changes*
 
-why
----
+### why
 
 as a fast alternative to my cringe perl cgi script that used to power my
 website.
 
-dependencies
-------------
+### dependencies
 
   - [owl lisp](https://haltp.org/posts/owl.html)
   - [robusta](https://github.com/krzysckh/robusta) (will clone as submodule)
   - [ImageMagick](https://imagemagick.org/)
 
-how
----
+### how
 
 ```sh
 $ git clone --recursive https://github.com/krzysckh/chai
@@ -93,8 +89,7 @@ s-expressions *(cool!!)*. This is what `(robusta encoding html)` does.
 To get to know more, look at `chai/defaults.scm`, which defines default pages
 as `(robusta encoding html)` expressions.
 
-caveats
--------
+### caveats
 
 - chai doesn't try to sort the galleries in the index by date. sorry (for now),
 - user-defined css doesn't work yet,
