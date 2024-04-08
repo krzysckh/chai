@@ -18,7 +18,7 @@
     (chai config)
     (chai util)
     (chai defaults)
-    (chai html))
+    (prefix (robusta encoding html) html/))
 
   (export
     main)
@@ -86,7 +86,7 @@
                         ((img (src . ,(string-append "res/" x "-min.jpg")))))))
                   (get-images d))))))
 
-        (print-to f (html site))
+        (print-to f (html/encode site))
 
         (create-directory (string-append dir "/res"))
         (for-each
@@ -118,7 +118,7 @@
 
         (print-to
           (open-output-file (string-append output-directory "/index.html"))
-          (html
+          (html/encode
             (index-template
               (append
                 '((div  (id . "idx-gal-list")))

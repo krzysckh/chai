@@ -16,13 +16,14 @@ dependencies
 ------------
 
   - [owl lisp](https://haltp.org/posts/owl.html)
+  - [robusta](https://github.com/krzysckh/robusta) (will clone as submodule)
   - [ImageMagick](https://imagemagick.org/)
 
 how
 ---
 
 ```sh
-$ git clone https://github.com/krzysckh/chai
+$ git clone --recursive https://github.com/krzysckh/chai
 $ cd chai
 $ make
 # make install
@@ -86,9 +87,9 @@ be implemented like this:
 ```
 
 Note that index-template is not just plain html, it's html written in
-s-expressions *(cool!!)*. This is what `(chai html)` does.
+s-expressions *(cool!!)*. This is what `(robusta encoding html)` does.
 To get to know more, look at `chai/defaults.scm`, which defines default pages
-as `(chai html)` expressions.
+as `(robusta encoding html)` expressions.
 
 caveats
 -------
@@ -99,6 +100,6 @@ caveats
 
 ------
 ```
-krzysckh 2023
+krzysckh 2023, 2024
 krzysckh.org
 ```

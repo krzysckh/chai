@@ -2,7 +2,7 @@ OL=ol
 TARGET=chai
 
 CFLAGS=
-OLFLAGS=#-O2
+OLFLAGS=--include lib/robusta #-O2
 
 .SUFFIXES: .scm .c
 

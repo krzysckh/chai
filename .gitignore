@@ -1,3 +1,4 @@
 *.[co]
 gal/
 bin/chai
+*.~undo-tree~
