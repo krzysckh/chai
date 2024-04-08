@@ -1,6 +1,8 @@
 chai
 ----
 
+<img src="https://raw.githubusercontent.com/krzysckh/chai/master/res/chai.jpg" align="right" width="300px">
+
 a static html gallery generator written in
 [owl lisp](https://haltp.org/posts/owl.html)
 
