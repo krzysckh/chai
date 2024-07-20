@@ -84,7 +84,8 @@
                      `((div (class . "gal-image"))
                        ((a (href . ,(string-append "res/" x)))
                         ((img (src . ,(string-append "res/" x "-min.jpg")))))))
-                  (get-images d))))))
+                  (get-images d))))
+            (string-append "Gallery: " (aq 'gallery-name gal-cfg))))
 
         (print-to f (html/encode site))
 

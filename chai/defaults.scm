@@ -36,12 +36,12 @@
                "powered by" ((a (href . "https://github.com/krzysckh/chai"))
                              "chai"))))))
 
-    (define (default-gallery-template gallery)
+    (define (default-gallery-template gallery title)
       `(html
          (head
            ((link (rel . "stylesheet") (href . "/res/chai.css")))
            ((meta (charset . "utf-8")))
-           (title "halo"))
+           (title ,title))
          (body
            ((div (id . "main"))
              ,gallery ; yeah good luck with that
