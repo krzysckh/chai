@@ -24,7 +24,7 @@
     (define (default-index-template index) ; TODO: config title etc.
       `(html
          (head
-           ((link (rel . "stylesheet") (href . "/res/chai.css")))
+           ((link (rel . "stylesheet") (href . "res/chai.css")))
            ((meta (charset . "utf-8")))
            ((meta (name . "viewport")
                   (content . "width=device-width, initial-scale=1.0")))
@@ -33,20 +33,20 @@
            ((div (id . "main"))
              ,index
              (footer
-               "powered by" ((a (href . "https://github.com/krzysckh/chai"))
+               "powered by " ((a (href . "https://github.com/krzysckh/chai"))
                              "chai"))))))
 
     (define (default-gallery-template gallery title)
       `(html
          (head
-           ((link (rel . "stylesheet") (href . "/res/chai.css")))
+           ((link (rel . "stylesheet") (href . "../res/chai.css")))
            ((meta (charset . "utf-8")))
            (title ,title))
          (body
            ((div (id . "main"))
              ,gallery ; yeah good luck with that
              (footer
-               "powered by" ((a (href . "https://github.com/krzysckh/chai"))
+               "powered by " ((a (href . "https://github.com/krzysckh/chai"))
                              "chai"))))))
 
     (define (private-htaccess htaccess)

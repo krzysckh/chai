@@ -1,14 +1,17 @@
 OL=ol
 TARGET=chai
 
+maybe_sqlite != $(OL) -e '(if (has? *features* (quote sqlite)) "`pkg-config --cflags --libs sqlite3`" "")'
+
 CFLAGS=
 OLFLAGS=--include lib/robusta #-O2
+LDFLAGS=$(maybe_sqlite)
 
 .SUFFIXES: .scm .c
 
 all: $(TARGET).c
 	mkdir -p bin
-	$(CC) $(CFLAGS) $(LDFLAGS) -o bin/$(TARGET) $(TARGET).c
+	$(CC) $(CFLAGS) -o bin/$(TARGET) $(TARGET).c $(LDFLAGS)
 .scm.c:
 	$(OL) $(OLFLAGS) -x c -o $@ $<
 clean:
