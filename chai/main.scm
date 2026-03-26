@@ -95,7 +95,9 @@
               (λ (x)
                 `((div (class . "gal-image"))
                   ((a (href . ,(string-append "res/" x)))
-                   ((img (src . ,(string-append "res/" x "-min.jpg")))))))
+                   ((img
+                     (loading . "lazy")
+                     (src . ,(string-append "res/" x "-min.jpg")))))))
               (get-images d))))
            (string-append "Gallery: " (aq 'gallery-name gal-cfg))))
 
@@ -146,6 +148,7 @@
                     ,(if (aq 'private cfg)
                          '(p "[private]")
                          `((img
+                            (loading . "lazy")
                             (src
                              . ,(string-append
                                  D (car
